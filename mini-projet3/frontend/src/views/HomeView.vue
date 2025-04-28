@@ -2,7 +2,7 @@
     <div class="home-container">
         <div class="home-content">
             <h1 class="welcome-title">Bienvenue sur notre plateforme !</h1>
-            
+
             <div v-if="userStore.user" class="user-section">
                 <div class="user-info">
                     <div class="user-details">
@@ -10,15 +10,10 @@
                         <p class="user-email">{{ userStore.user.email }}</p>
                     </div>
                 </div>
-                
+
                 <button @click="userStore.logout" class="logout-btn">
                     <span>Se déconnecter</span>
                 </button>
-
-                <div class="integrated-chat">
-                    <h2>Chat en direct</h2>
-                    <ChatComponent />
-                </div>
 
                 <router-link to="/chat" class="open-chat-btn">
                     Ouvrir le chat en plein écran
@@ -28,9 +23,23 @@
             <div v-else class="login-section">
                 <h2>Connectez-vous pour accéder au chat</h2>
                 <button @click="loginWithGoogle" class="google-login-btn">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google logo" class="google-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                        alt="Google logo" class="google-logo">
                     <span>Se connecter avec Google</span>
                 </button>
+
+                <button @click="loginWithGithub" class="github-login-btn">
+                    <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                        alt="GitHub logo" class="github-logo">
+                    <span>Se connecter avec GitHub</span>
+                </button>
+
+                <router-link to="/login" class="email-login-btn">
+                    Se connecter avec Email/Mot de passe
+                </router-link>
+                <router-link to="/register" class="email-login-btn">
+                    S'enregistrer
+                </router-link>
             </div>
         </div>
     </div>
@@ -39,7 +48,6 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useUserStore } from '../stores/user';
-import ChatComponent from '../components/ChatComponent.vue';
 
 const userStore = useUserStore();
 
@@ -49,6 +57,10 @@ onMounted(() => {
 
 function loginWithGoogle() {
     window.location.href = 'http://localhost:5000/auth/google';
+}
+
+function loginWithGithub() {
+    window.location.href = 'http://localhost:5000/auth/github';
 }
 </script>
 
@@ -175,15 +187,43 @@ button {
     font-size: 1.3rem;
 }
 
+.github-login-btn {
+    background-color: #24292e;
+    color: white;
+    border: none;
+    margin-top: 15px;
+    font-size: 1rem;
+}
+
+.github-login-btn:hover {
+    background-color: #444c56;
+}
+
+.github-logo {
+    width: 20px;
+    margin-right: 12px;
+    background: white;
+    border-radius: 50%;
+}
+
+.email-login-btn {
+    display: inline-block;
+    margin-top: 20px;
+    color: #2c3e50;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
 @media (max-width: 768px) {
     .home-content {
         padding: 20px;
     }
-    
+
     .welcome-title {
         font-size: 1.8rem;
     }
-    
+
     .user-info {
         flex-direction: column;
         text-align: center;

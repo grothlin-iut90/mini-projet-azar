@@ -1,8 +1,8 @@
 // Importation des modules nécessaires
-const passport = require('passport');
-const session = require('express-session');
-const http = require('http');
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const http = require('http');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -19,6 +19,15 @@ const Message = mongoose.model('Message');
 const app = express();
 
 app.use(cookieParser());
+
+// CORS configuration
+app.use(cors({
+    origin: 'http://localhost:5173',  // Frontend Vue.js
+    credentials: true
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 const MongoStore = require('connect-mongo');
@@ -40,15 +49,6 @@ app.use(sessionMiddleware);
 
 app.use(passport.initialize());
 app.use(passport.session())
-
-// CORS configuration
-app.use(cors({
-    origin: 'http://localhost:5173',  // Frontend Vue.js
-    credentials: true
-}));
-
-// Utilisation du body parser
-app.use(bodyParser.json());
 
 // Connexion à MongoDB
 mongoose.connect(keys.mongoURI, {
