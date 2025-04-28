@@ -12,7 +12,7 @@
 Ce dépôt regroupe trois mini-projets réalisés dans le cadre du module Service Web (S4) à l'IUT Nord Franche-Comté.  
 Chaque mini-projet explore différentes technologies et concepts autour du développement web moderne :
 
-- **mini-projet1** : Application frontend Vue.js (Vite) – mise en place d’une interface utilisateur réactive.
+- **mini-projet1** : Application fullstack (Node.js + Vue.js (Vite)) – mise en place d’une interface utilisateur réactive.
 - **mini-projet2** : Application fullstack (Node.js/Express + Vue.js) – gestion d’une API REST et d’un frontend associé.
 - **mini-projet3** : Application Node.js avec MongoDB – manipulation de données NoSQL et authentification.
 
