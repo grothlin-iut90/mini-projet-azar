@@ -65,7 +65,6 @@ async function register() {
 </script>
 
 <style scoped>
-/* ...existing code... */
 .register-container {
   min-height: 100vh;
   display: flex;

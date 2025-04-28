@@ -56,7 +56,6 @@ function logout() {
 </script>
 
 <style scoped>
-/* ...existing code... */
 .profile-bg {
   min-height: 100vh;
   display: flex;
