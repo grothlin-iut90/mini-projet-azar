@@ -42,6 +42,7 @@ Chaque mini-projet explore différentes technologies et concepts autour du déve
 - Page d’accueil sécurisée avec JWT
 - Gestion du token côté client
 
+
 </details>
 <details>
 <summary><strong>mini-projet3 :</strong> Application Node.js avec MongoDB – manipulation de données NoSQL et authentification.</summary><br>
@@ -59,6 +60,13 @@ Chaque mini-projet explore différentes technologies et concepts autour du déve
 - Mise en cache des sessions avec Redis
 - Interface de chat entre utilisateurs connectés
 - Stockage de l’historique des messages dans MongoDB
+
+<strong>Objectifs pédagogiques :</strong>
+- Comprendre les différentes méthodes d’authentification
+- Maîtriser la gestion des sessions via cookies et JWT
+- Implémenter une authentification OAuth2 avec un fournisseur tiers
+- Mettre en place un système de chat en temps réel
+- Optimiser la gestion des sessions avec Redis
 </details>
 <br>
 L’organisation du dépôt est la suivante :
