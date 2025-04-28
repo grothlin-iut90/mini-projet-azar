@@ -28,7 +28,7 @@
             <div v-else class="login-section">
                 <h2>Connectez-vous pour accéder au chat</h2>
                 <button @click="loginWithGoogle" class="google-login-btn">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google logo" class="google-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google logo" class="google-logo">
                     <span>Se connecter avec Google</span>
                 </button>
             </div>
