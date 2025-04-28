@@ -6,9 +6,9 @@ Projet de départ pour le cours Nouvelles bases de données: NodeJS + NoSQL
 
 ### Setup
 - Utilisez NodeJS version 16+
-- Lancez `npm install` à la racine du projet pour installer les dépendances du serveur.
-- Allez dans le répertoire client et exécutez `npm install --legacy-peer-deps --force`
-- Retournez à la racine du projet et lancez `npm run dev` pour démarrer le serveur.
+- Lancez `npm install` dans le répetoire backend pour installer les dépendances du serveur.
+- Allez dans le répertoire frontend et exécutez `npm install --legacy-peer-deps --force`
+- Allez dans le répertoire **backend** et lancez `npm run dev` pour démarrer le serveur.
 - Accédez à l'application à l'adresse `localhost:5173` dans votre navigateur.
 - Front-end: `localhost:5173`
 - Back-end: `localhost:5000`
