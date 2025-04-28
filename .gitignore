@@ -1,4 +1,19 @@
+.git
+.gitignore
+.vscode
+
+mini-projet1/backend/.env
+mini-projet1/backend/node_modules
+mini-projet1/frontend/.vscode
+mini-projet1/frontend/node_modules
+
+mini-projet2/backend/.env
+mini-projet2/backend/node_modules
+mini-projet2/frontend/.vscode
+mini-projet2/frontend/node_modules
 
 mini-projet3/config/dev.js
-/mini-projet3/node_modules
-/mini-projet3/client/.vscode
+mini-projet3/node_modules
+mini-projet3/client/.vscode
+mini-projet3/backend/config/dev.js
+mini-projet3/backend/node_modules

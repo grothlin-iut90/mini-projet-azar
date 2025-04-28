@@ -65,7 +65,6 @@ async function login() {
 </script>
 
 <style scoped>
-/* Copié depuis Register.vue */
 .register-container {
   min-height: 100vh;
   display: flex;

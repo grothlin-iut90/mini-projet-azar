@@ -13,12 +13,11 @@ function ensureAuthenticated(req, res, next) {
     res.status(401).json({ message: 'Non authentifié' });
 }
 
-// Exemple de route sécurisée
 router.get('/profile', ensureAuthenticated, (req, res) => {
     res.json({ message: 'Bienvenue sur votre profil', user: { id: req.user.id, email: req.user.email } });
 });
 
-// Route d'inscription
+// Inscription
 router.post('/register', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -34,12 +33,12 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Route de connexion
+// Connexion
 router.post('/login', passport.authenticate('local'), (req, res) => {
     res.json({ message: 'Connexion réussie', user: { id: req.user.id, email: req.user.email } });
 });
 
-// Route de déconnexion
+// Déconnexion
 router.post('/logout', (req, res) => {
     req.logout(() => {
         res.json({ message: 'Déconnexion réussie' });
