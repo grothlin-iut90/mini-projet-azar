@@ -17,3 +17,7 @@ mini-projet3/node_modules
 mini-projet3/client/.vscode
 mini-projet3/backend/config/dev.js
 mini-projet3/backend/node_modules
+/mini-projet3/node_modules
+/mini-projet3/client/.vscode
+mini-projet3/backend/config/dev.js
+/mini-projet3/backend/node_modules
