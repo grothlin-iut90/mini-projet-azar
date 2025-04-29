@@ -9,14 +9,17 @@ const bCrypt = require('bcrypt');
 
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    console.log('serializeUser appelé avec', user._id);
+    done(null, user._id);
 });
 
-passport.deserializeUser((id, done) => {
-    User.findById(id)
-        .then(user => {
-            done(null, user);
-        });
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch (err) {
+        done(err);
+    }
 });
 
 passport.use(
@@ -87,6 +90,7 @@ passport.use('local-register', new LocalStrategy(
         });
     })
 );
+
 passport.use('local-login', new LocalStrategy(
     {
         usernameField: 'email',

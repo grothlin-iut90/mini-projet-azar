@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import socket from '../socket';
 
 export const useUserStore = defineStore('user', {
     state: () => ({
@@ -20,6 +21,7 @@ export const useUserStore = defineStore('user', {
                 throw new Error('Erreur de connexion');
             }
 
+            socket.connect();
             const data = response.data;
             this.user = data;
         },
@@ -35,6 +37,7 @@ export const useUserStore = defineStore('user', {
                 throw new Error('Erreur lors de l\'inscription');
             }
 
+            socket.connect();
             const data = response.data;
             this.user = data;
         },

@@ -21,33 +21,53 @@ module.exports = app => {
 
     app.post('/auth/register', (req, res, next) => {
         passport.authenticate('local-register', (err, user, info) => {
-            if (err) { return next(err); }
+            if (err) return next(err);
             if (!user) {
-                return res.redirect('/register'); // ou res.status(400).send(info.message)
+                return res.status(400).json({ message: info.message || 'Échec de l’enregistrement' });
             }
 
             req.login(user, (err) => {
-                if (err) { return next(err); }
-                return res.redirect('/'); // ou res.json({ message: 'Register success' });
-            });
+                if (err) return next(err);
+            
+                req.session.save((err) => {
+                    if (err) return next(err);
+                    console.log("User logged in + session saved:", user);
+                    return res.status(200).json({
+                        message: 'Login success', user: {
+                            id: user._id,
+                            username: user.displayName,
+                            profilePicture: user.profilePicture
+                        }
+                    });
+                });
+            });            
         })(req, res, next);
     });
-
 
     app.post('/auth/login', (req, res, next) => {
         passport.authenticate('local-login', (err, user, info) => {
-            if (err) { return next(err); }
+            if (err) return next(err);
             if (!user) {
-                return res.redirect('/login'); // ou res.status(401).send(info.message)
+                return res.status(401).json({ message: info.message || 'Identifiants invalides' });
             }
 
             req.login(user, (err) => {
-                if (err) { return next(err); }
-                return res.redirect('/'); // ou res.json({ message: 'Login success' });
-            });
+                if (err) return next(err);
+            
+                req.session.save((err) => {
+                    if (err) return next(err);
+                    console.log("User logged in + session saved:", user);
+                    return res.status(200).json({
+                        message: 'Login success', user: {
+                            id: user._id,
+                            username: user.displayName,
+                            profilePicture: user.profilePicture
+                        }
+                    });
+                });
+            });            
         })(req, res, next);
     });
-
 
     app.get(
         '/auth/github',
@@ -68,8 +88,4 @@ module.exports = app => {
         req.logout();
         res.redirect('http://localhost:5173/');
     });
-
-    // app.get('/api/current_user', (req, res) => {
-    //     res.send(req.user);
-    // });
 };

@@ -5,6 +5,8 @@ const router = express.Router();
 
 // Route pour récupérer l'utilisateur courant
 router.get('/current_user', (req, res) => {
+    console.log(req.session);
+    console.log(req.user);
     if (req.user) {
         res.json({
             id: req.user._id,
