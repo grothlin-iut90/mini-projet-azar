@@ -111,7 +111,6 @@ onMounted(() => {
 
   socket.on("newMessage", (message) => {
     console.log("Nouveau message reçu:", message);
-    // Vérifie si le message est déjà présent dans la liste
     messages.value.push(message);
     setTimeout(() => {
       const messagesContainer = document.getElementById("messages");
@@ -125,7 +124,6 @@ function sendMessage() {
     if (!socket.connected) {
       console.warn("Socket non connecté, tentative de reconnexion...");
       socket.connect();
-      // Optionnel: attendre la connexion avant d'envoyer
       socket.once("connect", () => {
         socket.emit("sendMessage", buildMessage());
       });
@@ -153,163 +151,165 @@ function buildMessage() {
 <style scoped>
 .chat-container {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 860px;
+  margin: auto;
+  background: #f7f2e8;
+  border: 2px solid #e0d8c4;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(120, 98, 89, 0.2);
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', 'Segoe Script', cursive;
+  overflow: hidden;
+  position: relative;
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
 }
 
 #messages {
-  max-height: 500px;
+  flex: 1;
+  padding: 36px 24px 120px 24px;
   overflow-y: auto;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 12px;
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 }
 
 .message {
   display: flex;
-  width: 100%;
-}
-
-/* Style pour les messages des autres utilisateurs */
-.other-message {
-  justify-content: flex-start;
   align-items: flex-end;
+  gap: 14px;
+  position: relative;
+  transition: transform 0.2s;
 }
 
-/* .other-profile-picture {
-    order: 1;
-    margin-right: 10px;
-} */
-
-.other-message-content {
-  order: 2;
-  background-color: #e9ecef;
-  color: #333;
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
-  border-bottom-right-radius: 18px;
-}
-
-/* Style pour mes messages */
 .my-message {
-  justify-content: flex-end;
-  align-items: flex-end;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
 }
 
-.my-profile-picture {
-  order: 2;
-  margin-left: 5px;
-}
-
-.other-profile-picture {
-  order: 1;
-  margin-right: 5px;
-}
-
-.my-message-content {
-  order: 1;
-  background-color: #007bff;
-  color: white;
-  border-bottom-right-radius: 4px;
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
-  border-bottom-left-radius: 18px;
+.other-message {
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
 .profile-picture {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   object-fit: cover;
-  flex-shrink: 0;
-  transform: translateY(30px);
+  box-shadow: 0 0 0 2px #c9bca4;
 }
 
 .message-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 12px 18px;
-  max-width: 75%;
-  min-width: 120px;
+  max-width: 70%;
+  padding: 16px 22px;
+  background: #fffefb;
+  border-radius: 20px;
   position: relative;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1.5px dashed #d6cdbf;
+  word-break: break-word;
+  animation: fadeIn 0.4s ease;
+}
+
+.other-message-content {
+  background: #fffefb;
+  color: #3a2f2f;
+}
+
+.my-message-content {
+  background: #4b3f72;
+  color: #fffefb;
+  border: 1.5px solid #4b3f72;
 }
 
 .sender-name {
   font-weight: bold;
-  font-size: 0.85em;
-  margin-bottom: 6px;
-  color: #555;
+  margin-bottom: 4px;
+  color: #6a4e42;
+  font-size: 0.95em;
 }
 
 .my-message-content .sender-name {
-  display: none; /* Cache le nom pour mes propres messages */
+  display: none;
 }
 
 .message-text {
+  font-size: 1.05em;
   margin: 0;
-  word-break: break-word;
-  font-size: 1em;
-  line-height: 1.4;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
 }
 
 .message-time {
-  font-size: 0.75em;
-  margin-top: 6px;
-  opacity: 0.8;
-  align-self: flex-end;
-}
-
-.my-message-content .message-time {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.other-message-content .message-time {
-  color: rgba(0, 0, 0, 0.6);
+  margin-top: 8px;
+  font-size: 0.8em;
+  opacity: 0.7;
+  font-style: italic;
+  color: inherit;
+  text-align: right;
 }
 
 .message-input {
-  width: 100%;
-  padding: 14px 20px;
-  border: 1px solid #ddd;
-  border-radius: 24px;
-  font-size: 1em;
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 680px;
+  padding: 18px 24px;
+  font-size: 1.1em;
+  border: 2px dashed #d4c8b0;
+  border-radius: 32px;
+  background: #fffefb;
+  box-shadow: 0 6px 24px rgba(120, 98, 89, 0.1);
   outline: none;
-  transition: border 0.3s;
-  box-sizing: border-box;
+  transition: box-shadow 0.2s ease;
+  font-family: 'Segoe UI', 'Segoe Script', cursive;
 }
 
 .message-input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  background: #fdf7ec;
+  box-shadow: 0 8px 28px rgba(120, 98, 89, 0.15);
+}
+
+.message-input::placeholder {
+  color: #b7a997;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
   .chat-container {
-    padding: 15px;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .message-content {
-    max-width: 80%;
-    padding: 10px 15px;
+    max-width: 85%;
+    padding: 14px 16px;
+  }
+
+  .message-input {
+    width: 96%;
+    font-size: 1em;
+    padding: 16px 16px;
   }
 
   .profile-picture {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .message-content {
-    max-width: 85%;
+    width: 36px;
+    height: 36px;
   }
 }
 </style>

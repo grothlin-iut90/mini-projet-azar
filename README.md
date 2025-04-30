@@ -2,7 +2,7 @@
 
 ## Membres du groupe
 
-- **RÖTHLIN Gaël** : mini-projet1 et mini-projet2
+- **RÖTHLIN Gaël** : mini-projet1, mini-projet2 et mini-projet3
 - **BERNARD Elena** : mini-projet3
 
 ---
