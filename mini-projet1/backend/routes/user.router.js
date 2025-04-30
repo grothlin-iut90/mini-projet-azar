@@ -41,7 +41,10 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 // Déconnexion
 router.post('/logout', (req, res) => {
     req.logout(() => {
-        res.json({ message: 'Déconnexion réussie' });
+        req.session.destroy(() => {
+            res.clearCookie('connect.sid');
+            res.json({ message: 'Déconnexion réussie' });
+        });
     });
 });
 
