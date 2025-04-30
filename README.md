@@ -98,7 +98,7 @@ azar-projet/
     - [Installation et lancement](#installation-et-lancement)
       - [mini-projet1 (Frontend Vue.js) - RÖTHLIN Gaël](#mini-projet1-frontend-vuejs---röthlin-gaël)
       - [mini-projet2 (Backend + Frontend) - RÖTHLIN Gaël](#mini-projet2-backend--frontend---röthlin-gaël)
-      - [mini-projet3 (Node.js + MongoDB) - BERNARD Elena](#mini-projet3-nodejs--mongodb---bernard-elena)
+      - [mini-projet3 (Node.js + MongoDB) - RÖTHLIN Gaël, BERNARD Elena](#mini-projet3-nodejs--mongodb---röthlin-gaël-bernard-elena)
   - [⚠️ Remarque importante](#️-remarque-importante)
 
 ---
@@ -147,7 +147,58 @@ npm install
 npm run dev
 ```
 
-#### mini-projet3 (Node.js + MongoDB) - BERNARD Elena
+#### mini-projet3 (Node.js + MongoDB) - RÖTHLIN Gaël, BERNARD Elena
+
+**Prérequis :**
+- [Node.js](https://nodejs.org/) (v16 ou supérieure)
+- [npm](https://www.npmjs.com/)
+- [MongoDB](https://www.mongodb.com/) (local ou distant)
+- [Redis](https://redis.io/) (pour la gestion des sessions)
+- Variables d’environnement pour l’authentification OAuth2 (Google, Github.)
+
+**Backend :**
+
+```sh
+cd mini-projet3/backend
+npm install
+# Copier .env.example en .env et compléter les variables nécessaires (MongoDB URI, clés OAuth, etc.)
+npm start
+```
+
+**Frontend :**
+
+```sh
+cd mini-projet3/frontend
+npm install
+npm run dev
+```
+
+**Remarques :**
+- Votre `config/dev.js` doit avoir la forme suivante :
+```javascript
+module.exports = {
+  googleClientID: '<your_google_client_id>',
+  googleClientSecret: '<your_google_client_secret>',
+  githubClientID: '<your_github_client_id>',
+  githubClientSecret: '<your_client_secret>',
+  mongoURI: '<your_mongo_db_URI>',
+  cookieKey: 'your-cookie-key',
+  redisUrl: 'redis://localhost:5173'
+};
+```
+
+- Assurez-vous que MongoDB et Redis sont démarrés avant de lancer le backend.
+- Les informations de configuration (URI MongoDB, clés OAuth, etc.) doivent être renseignées dans le fichier `config/dev.js` du backend.
+- Pour l’authentification Google, crée un projet sur la [console Google Cloud](https://console.cloud.google.com/)
+  - Créez un nouveau projet et rendez-vous dans la rubrique '**API et Services**'
+  - Allez dans '**Credentials**' et créez de nouveaux credentials de type '**ID client OAuth**' 
+  - Sélectionnez 'Application Web' et insérez `http://localhost:5173/` dans '**URI de redirection autorisés**'
+  - Enregistrez les credentials et copiez collez les clients id/secret dans le fichier `config/dev.js`
+- Pour Github, rendez-vous sur le site suivant [github developers](https://github.com/settings/developers)
+  - Cliquez sur 'New OAuth App'
+  - Indiquez le nom que vous voulez
+  - Insérez `http://localhost:5173/` dans 'Homepage URL' et `http://localhost:5000/auth/github/callback` dans 'Authorization callback URL'
+  - vous devez ensuite récupérer un nouvel 'client secret', en cliquant sur 'Generate a new client secret', copiez ce **client secret** et insérez le dans le fichier `config/dev.js` dans le back end, faites de même pour le **client id**
 
 ## ⚠️ Remarque importante
 
