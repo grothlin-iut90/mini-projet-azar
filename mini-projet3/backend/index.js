@@ -90,41 +90,48 @@ io.use((socket, next) => {
     });
 });
 
-// Gestion des connexions Socket.io
 io.on('connection', (socket) => {
-    if (!socket.request.user) {
-        console.log('❌ Utilisateur non authentifié, déconnexion');
-        return socket.disconnect(true);
-    }
-
-    console.log('🔗 Utilisateur connecté via Socket.io:', socket.request.user);
+    console.log('Un utilisateur est connecté à Socket.io');
+    console.log('Utilisateur connecte :', socket.request.user);
 
     socket.on('sendMessage', async (messageContent) => {
-        const user = socket.request.user;
-        console.log('sendMessage de', user.username, ':', messageContent);
-        try {
-            const message = new Message({
-                content: messageContent.content,
-                sender: user.id,
-                senderName: user.username,
-                date: messageContent.date
-            });
-            const newMessage = await message.save();
-            io.emit('newMessage', {
-                content: newMessage.content,
-                sender: {
-                    _id: user.id,
-                    displayName: user.username,
-                    profilePicture: messageContent.sender.profilePicture
-                },
-                date: newMessage.date
-            });
-        } catch (err) {
-            console.error('Erreur lors de la sauvegarde du message :', err);
+        if (socket.request.user) {
+            try {
+                const user = socket.request.user;
+                console.log('Utilisateur :', user);
+                const message = new Message({
+                    content: messageContent.content,
+                    sender: messageContent.sender._id,
+                    senderName: messageContent.sender.displayName,
+                    date: messageContent.date
+                });
+
+                const newMessage = await message.save();
+
+                console.log('Message sauvegardé :', newMessage);
+                console.log('Contenu du message :', messageContent);
+                console.log('User :', user);
+
+                io.emit('newMessage', {
+                    content: newMessage.content,
+                    sender: {
+                        _id: messageContent.sender._id,
+                        displayName: messageContent.sender.displayName,
+                        profilePicture: messageContent.sender.profilePicture
+                    },
+                    date: newMessage.date
+                });
+            } catch (err) {
+                console.error('Erreur lors de la sauvegarde du message :', err);
+            }
+        } else {
+            console.log('Utilisateur non authentifié');
         }
     });
 
-    socket.on('disconnect', () => console.log("Un utilisateur s'est déconnecté"));
+    socket.on('disconnect', () => {
+        console.log('Un utilisateur s\'est déconnecté');
+    });
 });
 
 // Démarrage du serveur
