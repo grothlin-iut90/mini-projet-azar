@@ -37,6 +37,7 @@
                 <router-link to="/login" class="email-login-btn">
                     Se connecter avec Email/Mot de passe
                 </router-link>
+                <br>
                 <router-link to="/register" class="email-login-btn">
                     S'enregistrer
                 </router-link>

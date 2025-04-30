@@ -15,15 +15,17 @@ export const useUserStore = defineStore('user', {
             const response = await axios.post('http://localhost:5000/auth/login', {
                 email,
                 password
-            });
+            }, {withCredentials: true});
 
             if (response.status !== 200) {
                 throw new Error('Erreur de connexion');
             }
 
-            socket.connect();
-            const data = response.data;
+            const data = response.data.user;
             this.user = data;
+            setTimeout(() => {
+                socket.connect();
+            }, 100);
         },
         async register({ email, username, password }) {
             console.log('Register action called with:', { email, username, password });
@@ -31,15 +33,17 @@ export const useUserStore = defineStore('user', {
                 email,
                 username,
                 password
-            });
+            }, {withCredentials: true});
 
             if (response.status !== 200) {
                 throw new Error('Erreur lors de l\'inscription');
             }
 
-            socket.connect();
-            const data = response.data;
+            const data = response.data.user;
             this.user = data;
+            setTimeout(() => {
+                socket.connect();
+            }, 100);
         },
         async fetchUser() {
             try {
